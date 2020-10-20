@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Introduction to Teeport</title>
+    <!-- Required meta tags -->
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
+    <link rel='icon' type='image/png' href='logo.png'/>
+    <!-- Bootstrap CSS -->
+    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css' integrity='sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z' crossorigin='anonymous'>
+    <!-- Manual adjustments -->
+    <link rel='stylesheet' type='text/css' href='main.css'>
+    <!-- Add aframe for fancier effect -->
+    <!-- <script src='https://aframe.io/releases/1.0.4/aframe.min.js'></script>
+    <script src='https://unpkg.com/aframe-orbit-controls@1.2.0/dist/aframe-orbit-controls.min.js'></script> -->
+    <!-- Add model viewer for fancier and stable effect -->
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+    <!-- this is to remove the focus ring around the model viewer -->
+    <script src='https://unpkg.com/focus-visible@5.1.0/dist/focus-visible.js'></script>
+    <!-- Preload the iframe contents -->
+    <!-- <link rel='preload' href='http://51.141.166.134:3000/teeport/tasks' as='document' crossorigin> -->
+  </head>
+  <body>
+    <!-- Remark -->
+    <script src='extensions/remark.min.js'></script>
+    <!-- <script src='https://remarkjs.com/downloads/remark-latest.min.js'></script> -->
+    <!-- Optional JavaScript -->
+    <!-- Add KaTeX to support equations -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js'></script>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css'>
+    <!-- Add Mermaid to support various graphs -->
+    <script src='extensions/mermaid.min.js'></script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src='https://code.jquery.com/jquery-3.5.1.slim.min.js' integrity='sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj' crossorigin='anonymous'></script>
+    <script src='https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js' integrity='sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN' crossorigin='anonymous'></script>
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js' integrity='sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV' crossorigin='anonymous'></script>
+
+    <script>
+      // Create a plugin timer
+      const totalTime = 15 // min
+      const updateFreq = 1 // per min
+
+      const timer = document.createElement('div')
+      timer.setAttribute('class', 'timer-bar')
+      timer.style.width = '0'
+
+      const options = {
+        ratio: '16:9',
+        sourceUrl: 'slides.md',
+        navigation: {
+          scroll: false,
+        },
+        timer: {
+          formatter: elapsedTime => {
+            // update the plugin timer wrt the update frequency
+            const currentCount = Math.floor(elapsedTime / 6e4 * updateFreq)
+            const totalCount = totalTime * updateFreq
+            const ratio = Math.min(currentCount / totalCount, 1)
+            timer.style.width = `${ratio * 100}%`
+
+            let left = elapsedTime
+            const millis = left % 1000
+            left = Math.floor(left / 1000)
+            const seconds = left % 60
+            left = Math.floor(left / 60)
+            const minutes = left % 60
+            left = Math.floor(left / 60)
+            const hours = left
+
+            return '' + hours + ':' + ([minutes, seconds]
+              .map(d => { return '' + d })
+              .map(s => { return s.length < 2 ? '0' + s : s })
+              .join(':'))
+          },
+        },
+        highlightLines: true,
+        highlightStyle: 'github',
+        countIncrementalSlides: false,
+        slideNumberFormat: (current, total) => `
+          <div>
+            <div class='slide-counter'>
+              ${current} / ${total}
+            </div>
+            <div class='progress-bar-container'>
+              <div
+                class='progress-bar'
+                style='width: ${total > 1
+                  ? (current - 1) / (total - 1) * 100
+                  : 100
+                }%'
+              >
+              </div>
+            </div>
+          <div>
+        `,
+      }
+      const renderMath = () => {
+        // renderMathInElement(document.body)
+        // or if you want to use $...$ for math,
+        renderMathInElement(document.body, {
+          delimiters: [ // mind the order of delimiters(!?)
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false },
+            // {left: '\\[', right: '\\]', display: true},
+            // {left: '\\(', right: '\\)', display: false},
+          ]
+        })
+      }
+
+      const slideshow = remark.create(options, renderMath)
+
+      mermaid.initialize({
+        startOnLoad: false,
+        cloneCssStyles: false,
+        flowchart: {
+          useMaxWidth: true,
+        }
+      })
+      const initMermaid = s => {
+        const diagrams = document.querySelectorAll('.mermaid')
+        for (let i = 0; i < diagrams.length; i++) {
+          if (diagrams[i].offsetWidth > 0) {
+            mermaid.init(undefined, diagrams[i])
+          }
+        }
+      }
+      slideshow.on('afterShowSlide', initMermaid)
+      initMermaid(slideshow.getSlides()[slideshow.getCurrentSlideIndex()])
+
+      // Activate all the popovers
+      $(document).ready(() => {
+          // $('body').tooltip({ selector: '[data-toggle=tooltip]' })
+          $('body').popover({
+            selector: '[data-toggle=popover]',
+            trigger: 'click hover',
+          })
+      })
+
+      // Attach the timer to the progress bar container
+      slideshow.on('showSlide', slide => {
+        const idx = slide.getSlideIndex()
+        const container = $('.progress-bar-container')[idx]
+        container.appendChild(timer)
+      })
+    </script>
+  </body>
+</html>
