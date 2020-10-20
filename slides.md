@@ -84,6 +84,8 @@ template: motivation
 
 name: opt-acc
 
+
+
 ---
 
 name: opt-packages
@@ -1112,7 +1114,7 @@ name: thanks
 .my-n3[
 ]
 
-## [Questions](#backlog) and [comments](#index) are welcome
+## [Questions and comments](#index) are welcome
 
 ---
 
@@ -1120,59 +1122,40 @@ template: blank
 name: index
 count: false
 
-<!-- Index -->
-
 # [Index](#thanks)
 
 .left-5[
+## Outlines
+
 ### [Motivation](#opt-acc)
 - [Optimizations in the accelerator field](#opt-acc)
 - [The wall](#the-wall)
 
-### [Teeport 101](#teeport-basics)
+### [Teeport](#principles)
 - [Design principles](#principles)
 - [Concepts](#concepts) `&` [Concepts+](#concepts-cont)
-
-### [API Design](#run-processor)
 - [API](#run-processor) `&` [API+](#monitor-opt)
-]
-
-.right-5[
-### [Frontend of Teeport](#desktop)
-- [Desktop](#desktop)
-- [Mobile](#mobile)
+- [Desktop](#desktop) `&` [Mobile](#mobile)
+- [Features](#features)
+- [Repositories](#repos)
 
 ### [Applications](#applications-injeff)
 - [SPEAR3 beam loss rate remote optimization](#applications-lossrate)
 - [Enhance MG-GPO with GPy](#applications-gpy)
 - [Extend the ability of Ocelot](#applications-ocelot)
-
-### [Summary](#repos)
-- [Teeport features](#features)
-- [Teeport repositories](#repos)
 ]
 
----
+.right-5[
+## Backlog
 
-template: cover-backlog
-name: backlog
-count: false
-
-<!-- Backlog -->
-
-# [Backlog](#thanks)
-
-.left-5[
 ### [FAQ](#cons-prob)
 - [Constrained problems?](#cons-prob)
 - [In LCLS control room?](#no-network)
 - [How to pass the Pareto front?](#calc-igd)
 - [How to carry more information?](#carry-more)
 - [Monitor some other features?](#monitor-feature)
-]
 
-.right-5[
-### [Teeport](#teeport-arch)
+### [Teeport+](#teeport-arch)
 - [Architecture](#teeport-arch)
 - [Key design](#key-design)
 
@@ -1186,7 +1169,7 @@ layout: true
 template: blank-backlog
 name: faq
 
-# [FAQ](#backlog)
+# [FAQ](#index)
 
 ---
 
@@ -1229,7 +1212,7 @@ layout: true
 template: blank-backlog
 name: b-teeport
 
-# [Teeport](#backlog)
+# [Teeport](#index)
 
 ---
 
@@ -1744,7 +1727,7 @@ name: b-misc
 
 <!-- Misc -->
 
-# [Misc](#backlog)
+# [Misc](#index)
 
 ---
 
