@@ -299,6 +299,13 @@ body {
     margin-bottom: 1em;
 }
 
+.frame-1x3 {
+    width: 100%;
+    padding-top: 33%;
+    position: relative;
+    margin-bottom: 1em;
+}
+
 .frame-i {
     position: absolute;
     top: 0;
