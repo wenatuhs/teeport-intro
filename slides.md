@@ -43,11 +43,11 @@ name: title
 .py-4[
 ]
 
-[Zhe](https://github.com/wenatuhs).highlight.sup[*] [ZHANG](mailto:zhezhang@slac.stanford.edu)  
+[Zhe](https://github.com/wenatuhs).highlight.sup[\*] [ZHANG](mailto:zhezhang@slac.stanford.edu)  
 .text-muted[10/21/2020]
 
 .footnote[
-.highlight.mid[\\*] call me *Jay* if you have difficulty pronouncing it
+.highlight.mid[\\*] Call me *Jay* if you have difficulty pronouncing it
 ]
 
 ---
@@ -82,8 +82,6 @@ template: motivation
 
 ---
 
-name: opt-acc
-
 .left-5[
 Lots of optimization algorithm applications in the field
 
@@ -91,6 +89,8 @@ Lots of optimization algorithm applications in the field
 ]
 
 --
+
+name: opt-acc
 
 .right-5[
 Even more optimization packages/platforms available
@@ -166,6 +166,7 @@ count: false
 
 ---
 
+name: the-wall-full
 count: false
 
 .center[
@@ -203,8 +204,9 @@ name: principles
 ## Design principles
 
 - .highlight[Minimize] the effort of the integration
-    - Mininal interface
+    - Mininal APIs
 - .highlight[Embeddable] to the existed workflow
+    - Complement one another
 - .highlight[Ensure] the data safety
     - Never lose the precious data, under *any* circumstances
 
@@ -820,12 +822,12 @@ count: false
 ]]
 
 .right-5[
-MG-GPO vs PSO.highlight.sup[*]
+MG-GPO vs PSO.highlight.sup[\*]
 <img src='images/performance_lossrate_exp_best.png' class='w-100'/>
 ]
 
 .footnote[
-.highlight.mid[\\*] PSO .mono[===] Particle Swarm Optimization
+.highlight.mid[\*] PSO .mono[===] Particle Swarm Optimization
 ]
 
 ---
@@ -849,7 +851,7 @@ MG-GPO side
 .my-n2[
 ]
 
-.frame-2x5[.frame-i[
+.frame-1x3[.frame-i[
 ```matlab
 %% Run
 if useTeeport ~= 0
@@ -888,7 +890,7 @@ GPy side
 .my-n2[
 ]
 
-.frame-2x5[.frame-i[
+.frame-1x3[.frame-i[
 ```python
 # opt/processors/gpt_predictor.py
 def process(X, configs=None):
@@ -939,34 +941,7 @@ template: applications
 
 name: applications-ocelot
 
-.left-5[
-.center[
 
-]]
-
-.right-5[
-[**Injeff Exp Evaluator**](https://github.com/SPEAR3-ML/injeff-exp-evaluator) .badge.badge-secondary[matlab]
-.mb-n3[
-]
-.text-muted.small[The SPEAR3 injection efficiency evaluator for online
-optimization]
-
-.frame-3x4[.frame-i[
-```matlab
-PVs = {
-    'MS1-SFM:CurrSetpt'
-    'MS2-SF:CurrSetpt'
-    'MS3-SF:CurrSetpt'
-    'MS4-SF:CurrSetpt'
-    'MS5-SF:CurrSetpt'
-    'MS1-SDM:CurrSetpt'
-    'MS2-SD:CurrSetpt'
-    'MS3-SD:CurrSetpt'
-    'MS4-SD:CurrSetpt'
-    'MS5-SD:CurrSetpt'
-};
-```
-]]]
 
 ---
 
@@ -1034,30 +1009,29 @@ name: summary
 
 ---
 
-name: features
-
-## Features
-
-- .highlight[Maximize] the flexibility of the algorithm developer and the user
-    - Use any programming languages
-    - Code the way they like
-- .highlight[Minimize] the effort of the integration
-    - Mininal interface
-- .highlight[Embeddable] to the existed workflow
-- .highlight[Enrich] the user experience
-    - Control
-    - Monitor
-    - Benchmark
-    - And more
-- .highlight[Ensure] the data safety
-    - Never lose the precious data, under *any* circumstances
-
----
-
 name: repos
 
 .left-5[
-## Core repositories
+## Features
+
+### Teeport w/o GUI
+
+- Connect optimizers, evaluators and processors
+- Resume/recover optimization from break-point
+- Support both <abbr title='Single-objective Problem'>SOP</abbr>s and <abbr title='Multi-objective Problem'>MOP</abbr>s
+
+### Teeport w/ GUI
+
+- Control
+- Monitor
+- Export
+- Benchmark
+- Hyper-parameter tuning
+- Time traveling
+]
+
+.right-5[
+## Repositories
 
 - [**Teeport Backend**](https://github.com/SPEAR3-ML/teeport-backend) .badge.badge-secondary[javascript/docker]  
 .text-muted.small[Backend for the Teeport platform
@@ -1071,10 +1045,8 @@ name: repos
 - [**Teeport Client for Matlab**](https://github.com/SPEAR3-ML/teeport-client-matlab) .badge.badge-secondary[matlab]  
 .text-muted.small[Matlab client of the Teeport platform
 ]
-]
 
-.right-5[
-## Extension repositories
+___
 
 - [**SPEAR3 Opt Toolbox**](https://github.com/SPEAR3-ML/spear3-opt-pkg) .badge.badge-secondary[python]  
 .text-muted.small[SPEAR3 online optimization toolbox
@@ -1137,17 +1109,16 @@ count: false
 
 ### [Motivation](#opt-acc)
 - [Optimizations in the accelerator field](#opt-acc)
-- [The wall](#the-wall)
+- [The wall](#the-wall-full)
 
 ### [Teeport](#principles)
 - [Design principles](#principles)
 - [Concepts](#concepts) `&` [Concepts+](#concepts-cont)
 - [API](#run-processor) `&` [API+](#monitor-opt)
 - [Desktop](#desktop) `&` [Mobile](#mobile)
-- [Features](#features)
 - [Repositories](#repos)
 
-### [Applications](#applications-injeff)
+### [Applications](#applications-lossrate)
 - [SPEAR3 beam loss rate remote optimization](#applications-lossrate)
 - [Enhance MG-GPO with GPy](#applications-gpy)
 - [Extend the ability of Ocelot](#applications-ocelot)
@@ -1157,11 +1128,11 @@ count: false
 ## Backlog
 
 ### [FAQ](#cons-prob)
-- [Constrained/safety problems?](#cons-prob)
-- [In LCLS control room?](#no-network)
-- [How to pass the Pareto front?](#calc-igd)
-- [How to carry more information?](#carry-more)
-- [Monitor some other features?](#monitor-feature)
+- [Deal with constrained/safety search problems?](#cons-prob)
+- [Work in the LCLS control room?](#no-network)
+- [Pass the Pareto front to the evaluator?](#calc-igd)
+- [Carry more information (evaluator side)?](#carry-more)
+- [Monitor more properties (optimizer side)?](#monitor-feature)
 
 ### [Teeport+](#teeport-arch)
 - [Architecture](#teeport-arch)
@@ -1212,7 +1183,7 @@ count: false
 name: monitor-feature
 count: false
 
-## Monitor some other features
+## Monitor some other properties
 
 ---
 
@@ -1714,7 +1685,7 @@ Only connect to the .highlight[Teeport] server when necessary.
 ]
 
 .footnote[
-.highlight.mid[\\*] the typical data size for NSGA-II running on a 500D problem until converging is around .highlight[**1GB**]
+.highlight.mid[\\*] The typical data size for NSGA-II running on a 500D problem until converging is around .highlight[**1GB**]
 ]
 
 ---
@@ -1745,30 +1716,22 @@ count: false
 ## About the slides
 
 .left-5[
-### Info
 - Framework: [**Remark**](https://github.com/gnab/remark)
 - Language: `markdown`
-- Fonts: [**Tahoma**](https://docs.microsoft.com/en-us/typography/font-list/tahoma), [**Fira Code**](https://github.com/tonsky/FiraCode)
+- Fonts:
+    - [**Tahoma**](https://docs.microsoft.com/en-us/typography/font-list/tahoma) for text
+    - [**Fira Code**](https://github.com/tonsky/FiraCode) for code
 - Libraries:
     - [**Mermaid.js**](https://github.com/mermaid-js/mermaid) for diagrams
     - [**Bootstrap**](https://github.com/twbs) for styling
     - [**KaTeX**](https://github.com/KaTeX/KaTeX) for math typesetting
-
-### Statistics
-- Total line number.highlight.sup[*]: .highlight[3,000+]
-- Total commits: .highlight[17]
-- First commit: .highlight[09/02/2020 PT]
-]
-
-.footnote[
-.highlight.mid[\\*] counted by [**cloc**](https://github.com/AlDanial/cloc), blank lines and comments not included
 ]
 
 .right-5[
-[**Teeport Intro**](https://github.com/wenatuhs/work-overview) .badge.badge-secondary[markdown/html/css/javascript]
+[**Teeport Intro**](https://github.com/wenatuhs/teeport-intro) .badge.badge-secondary[markdown/html/css/javascript]
 .mb-n3[
 ]
-.text-muted.small[Overview of my work, made with remark.js
+.text-muted.small[Introduction to Teeport, made with remark.js
 ]
 
 .frame-2x3[.frame-i[
@@ -1780,43 +1743,22 @@ template: cover
 
 name: title
 
-# Work Overview
+# [.title[Teeport]](https://teeport.ml/tasks)
+.my-n3[
+]
 
-[Zhe](https://github.com/wenatuhs).highlight.sup[*] ZHANG  
-.text-muted[09/2020]
+## Break the Wall between the Optimization Algorithms and Problems
+.py-4[
+]
+
+[Zhe](https://github.com/wenatuhs).highlight.sup[\*] [ZHANG](mailto:zhezhang@slac.stanford.edu)  
+.text-muted[10/21/2020]
 
 .footnote[
-.highlight.mid[\\*] call me *Jay* if you have difficulty pronouncing it
+.highlight.mid[\\*] Call me *Jay* if you have difficulty pronouncing it
 ]
 
 ---
-
-layout: true
-template: blank
-
----
-
-name: self-intro
-
-# [Self introduction](#index)
-
-## Education
-- .time-range[2011-2017] .d-flex.mb-n2[Ph.D. in Accelerator Physics, Tsinghua University, China  
-(Supervisor: Prof. Chuanxiang TANG)]
-- .time-range[2007-2011] .d-flex.mb-n2[B.Sc. in Engineering Physics, Tsinghua University, China  
-(.important[GPA 90.6, Rank 5/150])]
-- .time-range[2014 03-12] .d-flex[VGR in Pegasus Group, UCLA, USA]
-- .time-range[2013 03-06] .d-flex[VGR in PSI, Switzerland]
-
-## Work
-- .time-range[2019-] .d-flex.mb-n2[Research Associate, SLAC National Accelerator Laboratory  
-(Supervisor: Dr. Xiaobiao Huang)]
-- .time-range[2018-2019] .d-flex[Algorithm Engineer, Visual3D Inc., China]
-- .time-range[2017-2018] .d-flex[Fullstack Engineer, Visual3D Inc., China]
-
-## Non-trivial Honors
-- .time-range[2016] .d-flex[Grade A+, USPAS 2014, USA (maybe not so non-trivial)]
-- .time-range[2012] .d-flex[First-in-class, 7th OCPA, China]
 
 ```
 ]]]
