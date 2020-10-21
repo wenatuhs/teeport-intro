@@ -203,12 +203,18 @@ name: principles
 
 ## Design principles
 
+.left-5[
 - .highlight[Minimize] the effort of the integration
     - Mininal APIs
 - .highlight[Embeddable] to the existed workflow
     - Complement one another
 - .highlight[Ensure] the data safety
     - Never lose the precious data, under *any* circumstances
+]
+
+.right-5[
+<img src='images/teeport/teeport.png' width='100%'/>
+]
 
 ---
 
@@ -842,9 +848,8 @@ template: applications
 name: applications-gpy
 
 .left-5[
-.center[
-
-]]
+<img src='images/teeport/teeport-gpy.png' width='100%' style='margin-top: 2em;'/>
+]
 
 .right-5[
 MG-GPO side
@@ -941,7 +946,17 @@ template: applications
 
 name: applications-ocelot
 
+.center[
+<img src='images/teeport/teeport-ocelot-eval.png' width='85%'/>
+]
 
+---
+
+count: false
+
+.center[
+<img src='images/teeport/teeport-ocelot-opt.png' width='85%'/>
+]
 
 ---
 
@@ -1016,9 +1031,9 @@ name: repos
 
 ### Teeport w/o GUI
 
-- Connect optimizers, evaluators and processors
-- Resume/recover optimization from break-point
-- Support both <abbr title='Single-objective Problem'>SOP</abbr>s and <abbr title='Multi-objective Problem'>MOP</abbr>s
+- Connect optimizers, evaluators and processors, *effortlessly*
+    - Support both <abbr title='Single-objective Problem'>SOP</abbr>s and <abbr title='Multi-objective Problem'>MOP</abbr>s
+- Resume/.text-muted[recover] optimization from break-point
 
 ### Teeport w/ GUI
 
@@ -1026,8 +1041,8 @@ name: repos
 - Monitor
 - Export
 - Benchmark
-- Hyper-parameter tuning
-- Time traveling
+- .text-muted[Hyper-parameter tuning]
+- .text-muted[Time traveling]
 ]
 
 .right-5[
@@ -1127,12 +1142,12 @@ count: false
 .right-5[
 ## Backlog
 
-### [FAQ](#cons-prob)
+<!-- ### [FAQ](#cons-prob)
 - [Deal with constrained/safety search problems?](#cons-prob)
 - [Work in the LCLS control room?](#no-network)
 - [Pass the Pareto front to the evaluator?](#calc-igd)
 - [Carry more information (evaluator side)?](#carry-more)
-- [Monitor more properties (optimizer side)?](#monitor-feature)
+- [Monitor more properties (optimizer side)?](#monitor-feature) -->
 
 ### [Teeport+](#teeport-arch)
 - [Architecture](#teeport-arch)
@@ -1156,6 +1171,26 @@ name: cons-prob
 count: false
 
 ## Constrained problems in Teeport
+
+.left-5[
+### General constrains
+
+$$C_1(\mathbf{x}) \le 0$$
+$$C_2(\mathbf{x}) \le 0$$
+$$\cdots$$
+$$C_k(\mathbf{x}) \le 0$$
+
+### Evaluators/processors composition
+
+$$C_1(\mathbf{x})$$
+
+### Deal in the optimizer
+
+$$C_1(\mathbf{x})$$
+]
+
+.right-5[
+]
 
 ---
 
