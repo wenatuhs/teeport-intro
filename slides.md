@@ -636,7 +636,7 @@ name: mobile
 count: false
 
 .center[
-<img src='/images/iphone-6s-frame.png' style='height: 494px;'/>
+<img src='images/iphone-6s-frame.png' style='height: 494px;'/>
 ]
 
 <div class='overflow-hidden'
