@@ -43,7 +43,7 @@ name: title
 .py-4[
 ]
 
-[Zhe](https://github.com/wenatuhs).highlight.sup[*] ZHANG  
+[Zhe](https://github.com/wenatuhs).highlight.sup[*] [ZHANG](mailto:zhezhang@slac.stanford.edu)  
 .text-muted[10/21/2020]
 
 .footnote[
@@ -84,14 +84,16 @@ template: motivation
 
 name: opt-acc
 
-
-
----
-
-name: opt-packages
-
 .left-5[
-There're so many optimization packages/platforms available:
+Lots of optimization algorithm applications in the field
+
+<img src='images/opt-acc/papers.png' width='100%'/>
+]
+
+--
+
+.right-5[
+Even more optimization packages/platforms available
 
 - [**PaGMO**](https://github.com/esa/pagmo2)/[**PyGMO**](https://github.com/esa/pygmo2) .badge.badge-secondary[c++/python]  
 .text-muted.small[MOGA optimization package]
@@ -203,7 +205,6 @@ name: principles
 - .highlight[Minimize] the effort of the integration
     - Mininal interface
 - .highlight[Embeddable] to the existed workflow
-    - Never lose the precious data, under *any* circumstances
 - .highlight[Ensure] the data safety
     - Never lose the precious data, under *any* circumstances
 
@@ -840,7 +841,7 @@ name: applications-gpy
 
 .left-5[
 .center[
-<img src='images/spear-injeff.jpeg' height='450'/>
+
 ]]
 
 .right-5[
@@ -940,7 +941,7 @@ name: applications-ocelot
 
 .left-5[
 .center[
-<img src='images/spear-injeff.jpeg' height='450'/>
+
 ]]
 
 .right-5[
@@ -1042,6 +1043,7 @@ name: features
     - Code the way they like
 - .highlight[Minimize] the effort of the integration
     - Mininal interface
+- .highlight[Embeddable] to the existed workflow
 - .highlight[Enrich] the user experience
     - Control
     - Monitor
@@ -1094,7 +1096,7 @@ template: blank
 name: acknowledgements
 
 - [**Xiaobiao Huang**](mailto:huangxb@anl.gov) .badge.badge-primary[sponsor]  
-.text-muted.small[For the support and many good advices
+.text-muted.small[For the support.highlight.sup[1, 2, 3] and many good advices
 ]
 - [**Minghao Song**](mailto:mhsong@slac.stanford.edu) .badge.badge-primary[user#1]  
 .text-muted.small[For the early testing/debugging and the helpful feedbacks  
@@ -1103,6 +1105,12 @@ Also for the contribution to the matlab Teeport plugin
 - [**Adi Hanuka**](mailto:adiha@slac.stanford.edu) .badge.badge-primary[advocate]  
 .text-muted.small[For the very helpful discussions and advices  
 Also for the kind advertising for Teeport!
+]
+
+.footnote[
+.highlight[1.] U.S. Department of Energy, Office of Science, Office of Basic Energy Sciences, Contract No. *DE-AC02-76SF00515*  
+.highlight[2.] U.S. Department of Energy, Office of Science, Office of Basic Energy Sciences, *FWP 2018-SLAC-100469*  
+.highlight[3.] U.S. Department of Energy, Computing Science, Office of Advanced Scientific Computing Research, *FWP 2018-SLAC-100469ASCR*
 ]
 
 ---
@@ -1149,7 +1157,7 @@ count: false
 ## Backlog
 
 ### [FAQ](#cons-prob)
-- [Constrained problems?](#cons-prob)
+- [Constrained/safety problems?](#cons-prob)
 - [In LCLS control room?](#no-network)
 - [How to pass the Pareto front?](#calc-igd)
 - [How to carry more information?](#carry-more)

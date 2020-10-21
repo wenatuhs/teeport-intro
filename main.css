@@ -111,6 +111,10 @@ body {
     color: var(--primary);
 }
 
+.hl {
+    color: var(--primary);
+}
+
 .bold {
     font-weight: 700;
 }
