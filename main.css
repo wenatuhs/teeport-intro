@@ -136,6 +136,7 @@ body {
 
 .sup {
     font-size: 80%;
+    font-weight: 500;
     position: relative;
     top: -0.5em;
 }

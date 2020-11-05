@@ -44,7 +44,7 @@ name: title
 ]
 
 [Zhe](https://github.com/wenatuhs).highlight.sup[\*] [ZHANG](mailto:zhezhang@slac.stanford.edu)  
-.text-muted[10/21/2020]
+.text-muted[11/06/2020]
 
 .footnote[
 .highlight.mid[\\*] Call me *Jay* if you have difficulty pronouncing it
@@ -101,7 +101,7 @@ Even more optimization packages/platforms available
 .text-muted.small[Another MOGA optimization package]
 - [**PlatEMO**](https://github.com/BIMK/PlatEMO) .badge.badge-secondary[matlab]  
 .text-muted.small[Collection of the latest MOGA algorithms/test suites]
-- [**Ocelot**](https://github.com/ocelot-collab/optimizer) .badge.badge-secondary[python]  
+- [**Ocelot optimizer**](https://github.com/ocelot-collab/optimizer) .badge.badge-secondary[python]  
 .text-muted.small[Designed for accelerator machine interface]
 - [**xopt**](https://github.com/ChristopherMayes/xopt) .badge.badge-secondary[python]  
 .text-muted.small[Parallel optimization]
@@ -179,6 +179,414 @@ count: false
 
 .center[
 <img src='images/the-wall/the-wall.008.jpeg' height='480'/>
+]
+
+---
+
+layout: true
+template: motivation
+
+## Get around the wall
+
+---
+
+name: get-around-the-wall
+
+### RCDS: from `Matlab` to `C`.highlight.sup[\*]
+
+.left-5[
+.frame-4x5[.frame-i[
+```matlab
+function [x1,f1,nf]=powellmain(func,x0,step,Dmat0,tol,maxIt,flag_plot,maxEval)
+
+if nargin <= 2 | isempty(x0)
+    step = 0.02;
+end
+if nargin <= 3 | isempty(Dmat0)
+    Dmat0 = eye(length(x0));
+end
+if nargin <= 4 | isempty(tol)
+    tol = 1E-5;
+end
+if nargin <= 5 | isempty(maxIt)
+    maxIt = 100;
+end
+if nargin <= 6 | isempty(flag_plot)
+    flag_plot = 'noplot';
+end
+if nargin <= 7 | isempty(maxEval)
+    maxEval = 1500;
+end
+Nvar = length(x0);
+
+f0=func(x0);
+nf=1;
+
+%best solution so far
+xm=x0;
+fm=f0;
+
+it=0;
+Dmat = Dmat0;
+
+global g_cnt
+Npmin = 6;
+
+while it < maxIt
+    it = it+1;
+    step = step/1.2;
+    
+    k=1;
+    del=0;
+    for ii=1:Nvar
+        dv = Dmat(:,ii);
+        [x1,f1,a1,a2,xflist,ndf] = bracketmin(func,xm,fm,dv,step,flag_plot);
+        nf=nf+ndf;
+        
+        fprintf('iter %d, dir %d: begin\t%d, ',it,ii, g_cnt)
+        [x1,f1,ndf] = linescan(func,x1,f1,dv,a1,a2,Npmin,xflist,flag_plot);
+        fprintf('end\t%d : %f\n', g_cnt,f1)
+        nf=nf+ndf;
+        
+        %direction with largest decrease
+        if (fm - f1)*(1) > del,
+            del=(fm - f1)*(1);
+            k=ii;
+            fprintf('iteration %d, var %d: del = %f updated\n',it, ii, del);
+        end
+        
+        fm=f1;
+        xm=x1;
+    end
+    
+    xt = 2*xm-x0;
+    ft = func(xt);
+    nf = nf+1;
+    
+    if f0<=ft || 2*(f0-2*fm+ft)*((f0-fm-del)/(ft-f0))^2 >= del %|| norm(xm-x0)<0.01/sqrt(Nvar)
+        fprintf('   , dir %d not replaced: %d, %d\n',k,f0<=ft, 2*(f0-2*fm+ft)*((f0-fm-del)/(ft-f0))^2 >= del )
+    else
+        ndv = (xm-x0)/norm(xm-x0);
+        for jj=1:Nvar
+            dotp(jj) = abs(ndv(:)'*Dmat(:,jj));
+        end
+        if max(dotp)<0.9
+            if k < Nvar
+                Dmat(:,k:Nvar-1)=Dmat(:,k+1:end);
+            end
+            Dmat(:,end)= ndv;
+            
+            %move to the mininum of the new direction
+            dv = Dmat(:,end);
+            [x1,f1,a1,a2,xflist,ndf] = bracketmin(func,xm,fm,dv,step,flag_plot);
+            nf=nf+ndf;
+            
+            fprintf('iter %d, new dir %d: begin\t%d, ',it,k, g_cnt)
+            [x1,f1,ndf] = linescan(func,x1,f1,dv,a1,a2,Npmin,xflist,flag_plot);
+            fprintf('end\t%d : %f\n',g_cnt,f1)
+            nf=nf+ndf;
+            fm=f1;
+            xm=x1;
+        else
+            fprintf('    , skipped new direction %d, max dot product %f\n',k, max(dotp));
+            
+            
+        end
+        
+    end
+    
+    %termination
+    if g_cnt>maxEval
+        fprintf('terminated, reaching function evaluation limit: %d > %d\n',g_cnt, maxEval);
+        break
+    end
+    if 2.0*abs(f0-fm) < tol*(abs(f0)+abs(fm)) & tol>0
+        fprintf('terminated: f0=%4.2e\t, fm=%4.2e, f0-fm=%4.2e\n',f0, fm, f0-fm);
+        break;
+    end
+    
+    f0=fm;
+    x0=xm;
+end
+```
+]]]
+
+.right-5[
+.frame-4x5[.frame-i[
+```c
+long rcdsMin(double *yReturn, double *xBest, double *xGuess, double *dxGuess, double *xLowerLimit, double *xUpperLimit, double **dmat0, long dimensions, double target, /* will return if any value is <= this */
+             double tolerance,                                                                                                                                          /* <0 means fractional, >0 means absolute */
+             double (*func)(double *x, long *invalid), void (*report)(double ymin, double *xmin, long pass, long evals, long dims), long maxEvaluations,                /*maimum number of funcation evaluation */
+             long maxPasses,                                                                                                                                            /*maximum number of iterations */
+             double noise, double rcdsStep, unsigned long flags)
+{
+  long i, j, totalEvaluations = 0, inValid = 0, k, pass, Npmin = 6, direction;
+  double *x0 = NULL; /*normalized xGuess */
+  double *dv = NULL, del = 0, f0, step = 0.01, f1, fm, ft, a1, a2, tmp, norm, maxp = 0, tmpf, *tmpx = NULL;
+  double *xm = NULL, *x1 = NULL, *xt = NULL, *ndv = NULL, *dotp = NULL, *x_value = NULL, *xmin = NULL, fmin;
+  double *step_list = NULL, *f_list = NULL, step_init;
+  long n_list;
+
+  rcdsFlags = 0;
+  if (rcdsStep > 0 && rcdsStep < 1)
+    step = rcdsStep;
+
+  if (dimensions <= 0)
+    return (-3);
+  DIMENSIONS = dimensions;
+
+  if (flags & SIMPLEX_VERBOSE_LEVEL1)
+    fprintf(stdout, "rcdsMin dimensions: %ld\n", dimensions);
+
+  x0 = malloc(sizeof(*x0) * dimensions);
+  tmpx = malloc(sizeof(*tmpx) * dimensions);
+  /*normalize xGuess  to between 0 and 1; for step unification purpose */
+  normalize_variables(xGuess, x0, xLowerLimit, xUpperLimit, dimensions);
+
+  f0 = (*func)(xGuess, &inValid); /*note that the function evaluation still uses non-normalized */
+  if (inValid)
+    {
+      f0 = DBL_MAX;
+      fprintf(stderr, "error: initial guess is invalid in rcdsMin()\n");
+      free(x0);
+      free(tmpx);
+      return (-3);
+    }
+  totalEvaluations++;
+  if (!dmat0)
+    {
+      dmat0 = malloc(sizeof(*dmat0) * dimensions);
+      for (i = 0; i < dimensions; i++)
+        {
+          dmat0[i] = calloc(dimensions, sizeof(**dmat0));
+          for (j = 0; j < dimensions; j++)
+            if (j == i)
+              dmat0[i][j] = 1;
+        }
+    }
+  if (dxGuess)
+    {
+      step = 0;
+      for (i = 0; i < dimensions; i++)
+        {
+          if (xLowerLimit && xUpperLimit)
+            {
+              step += dxGuess[i] / (xUpperLimit[i] - xLowerLimit[i]);
+            }
+          else
+            step += dxGuess[i];
+        }
+      step /= dimensions;
+    }
+  step = 0.01;
+  /*best solution so far */
+  xm = malloc(sizeof(*xm) * dimensions);
+  xmin = malloc(sizeof(*xmin) * dimensions);
+  memcpy(xm, x0, sizeof(*xm) * dimensions);
+  memcpy(xmin, x0, sizeof(*xm) * dimensions);
+  fmin = fm = f0;
+  memcpy(xBest, xGuess, sizeof(*xBest) * dimensions);
+  *yReturn = f0;
+  if (f0 <= target)
+    {
+      if (flags & SIMPLEX_VERBOSE_LEVEL1)
+        {
+          fprintf(stdout, "rcdsMin: target value achieved in initial setup.\n");
+        }
+      if (report)
+        (*report)(f0, xGuess, 0, 1, dimensions);
+      free(tmpx);
+      free(x0);
+      free(xm);
+      free(xmin);
+      free_zarray_2d((void **)dmat0, dimensions, dimensions);
+      return (totalEvaluations);
+    }
+
+  if (maxPasses <= 0)
+    maxPasses = DEFAULT_MAXPASSES;
+
+  x1 = tmalloc(sizeof(*x1) * dimensions);
+  xt = tmalloc(sizeof(*xt) * dimensions);
+  ndv = tmalloc(sizeof(*ndv) * dimensions);
+  dotp = tmalloc(sizeof(*dotp) * dimensions);
+  for (i = 0; i < dimensions; i++)
+    dotp[i] = 0;
+
+  if (!x_value)
+    x_value = tmalloc(sizeof(*x_value) * dimensions);
+
+  if (flags & SIMPLEX_VERBOSE_LEVEL1)
+    {
+      fprintf(stdout, "rcdsMin: starting conditions:\n");
+      for (direction = 0; direction < dimensions; direction++)
+        fprintf(stdout, "direction %ld: guess=%le \n", direction, xGuess[direction]);
+      fprintf(stdout, "starting funcation value %le \n", f0);
+    }
+  pass = 0;
+  while (pass < maxPasses && !(rcdsFlags & RCDS_ABORT))
+    {
+      step = step / 1.2;
+      step_init = step;
+      k = 0;
+      del = 0;
+      for (i = 0; !(rcdsFlags & RCDS_ABORT) && i < dimensions; i++)
+        {
+          dv = dmat0[i];
+          if (flags & SIMPLEX_VERBOSE_LEVEL1)
+            fprintf(stdout, "begin iteration %ld, var %ld, nf=%ld\n", pass + 1, i + 1, totalEvaluations);
+          totalEvaluations += bracketmin(func, xm, fm, dv, xLowerLimit, xUpperLimit, dimensions, noise, step_init, &a1, &a2, &step_list, &f_list, &n_list, x1, &f1, xmin, &fmin);
+          memcpy(tmpx, x1, sizeof(*tmpx) * dimensions);
+          tmpf = f1;
+          if (flags & SIMPLEX_VERBOSE_LEVEL1)
+            fprintf(stdout, "\niter %ld, dir (var) %ld: begin linescan %ld\n", pass + 1, i + 1, totalEvaluations);
+          if (rcdsFlags & RCDS_ABORT)
+            break;
+          totalEvaluations += linescan(func, tmpx, tmpf, dv, xLowerLimit, xUpperLimit, dimensions, a1, a2, Npmin, step_list, f_list, n_list, x1, &f1, xmin, &fmin);
+          /*direction with largest decrease */
+          if ((fm - f1) > del)
+            {
+              del = fm - f1;
+              k = i;
+              if (flags & SIMPLEX_VERBOSE_LEVEL1)
+                fprintf(stdout, "iteration %ld, var %ld: del= %f updated", pass + 1, i + 1, del);
+            }
+          if (flags & SIMPLEX_VERBOSE_LEVEL1)
+            fprintf(stdout, "iteration %ld, director %ld done, fm=%f, f1=%f\n", pass + 1, i + 1, fm, f1);
+
+          fm = f1;
+          memcpy(xm, x1, sizeof(*xm) * dimensions);
+        }
+      if (flags & SIMPLEX_VERBOSE_LEVEL1)
+        fprintf(stderr, "\niteration %ld, fm=%f fmin=%f\n", pass + 1, fm, fmin);
+      if (rcdsFlags & RCDS_ABORT)
+        break;
+      inValid = 0;
+      for (i = 0; i < dimensions; i++)
+        {
+          xt[i] = 2 * xm[i] - x0[i];
+          if (fabs(xt[i]) > 1)
+            {
+              inValid = 1;
+              break;
+            }
+        }
+      if (!inValid)
+        {
+          scale_variables(x_value, xt, xLowerLimit, xUpperLimit, dimensions);
+          ft = (*func)(x_value, &inValid);
+          totalEvaluations++;
+        }
+      if (inValid)
+        ft = DBL_MAX;
+      tmp = 2 * (f0 - 2 * fm + ft) * pow((f0 - fm - del) / (ft - f0), 2);
+      if ((f0 <= ft) || tmp >= del)
+        {
+          if (flags & SIMPLEX_VERBOSE_LEVEL1)
+            fprintf(stdout, "dir %ld not replaced, %d, %d\n", k, f0 <= ft, tmp >= del);
+        }
+      else
+        {
+          /*compute norm of xm - x0 */
+          if (flags & SIMPLEX_VERBOSE_LEVEL1)
+            fprintf(stdout, "compute dotp\n");
+          norm = 0;
+          for (i = 0; i < dimensions; i++)
+            {
+              norm += (xm[i] - x0[i]) * (xm[i] - x0[i]);
+            }
+          norm = pow(norm, 0.5);
+          for (i = 0; i < dimensions; i++)
+            ndv[i] = (xm[i] - x0[i]) / norm;
+          maxp = 0;
+          for (i = 0; i < dimensions; i++)
+            {
+              dv = dmat0[i];
+              dotp[i] = 0;
+              for (j = 0; j < dimensions; j++)
+                dotp[i] += ndv[j] * dv[j];
+              dotp[i] = fabs(dotp[i]);
+              if (dotp[i] > maxp)
+                maxp = dotp[i];
+            }
+          if (maxp < 0.9)
+            {
+              if (flags & SIMPLEX_VERBOSE_LEVEL1)
+                fprintf(stdout, "max dot product <0.9, do bracketmin and linescan...\n");
+              if (k < dimensions - 1)
+                {
+                  for (i = k; i < dimensions - 1; i++)
+                    {
+                      for (j = 0; j < dimensions; j++)
+                        dmat0[i][j] = dmat0[i + 1][j];
+                    }
+                }
+              for (j = 0; j < dimensions; j++)
+                dmat0[dimensions - 1][j] = ndv[j];
+              dv = dmat0[dimensions - 1];
+              totalEvaluations += bracketmin(func, xm, fm, dv, xLowerLimit, xUpperLimit, dimensions, noise, step, &a1, &a2, &step_list, &f_list, &n_list, x1, &f1, xmin, &fmin);
+
+              memcpy(tmpx, x1, sizeof(*tmpx) * dimensions);
+              tmpf = f1;
+              totalEvaluations += linescan(func, tmpx, tmpf, dv, xLowerLimit, xUpperLimit, dimensions, a1, a2, Npmin, step_list, f_list, n_list, x1, &f1, xmin, &fmin);
+              memcpy(xm, x1, sizeof(*xm) * dimensions);
+              fm = f1;
+              if (flags & SIMPLEX_VERBOSE_LEVEL1)
+                fprintf(stderr, "fm=%le \n", fm);
+            }
+          else
+            {
+              if (flags & SIMPLEX_VERBOSE_LEVEL1)
+                fprintf(stdout, "   , skipped new direction %ld, max dot product %f\n", k, maxp);
+            }
+        }
+      /*termination */
+      if (totalEvaluations > maxEvaluations)
+        {
+          fprintf(stderr, "Terminated, reaching function evaluation limit %ld > %ld\n", totalEvaluations, maxEvaluations);
+          break;
+        }
+      if (2.0 * fabs(f0 - fmin) < tolerance * (fabs(f0) + fabs(fmin)) && tolerance > 0)
+        {
+          if (flags & SIMPLEX_VERBOSE_LEVEL1)
+            fprintf(stdout, "Reach tolerance, terminated, f0=%le, fmin=%le, f0-fmin=%le\n", f0, fmin, f0 - fmin);
+          break;
+        }
+      if (fmin <= target)
+        {
+          if (flags & SIMPLEX_VERBOSE_LEVEL1)
+            fprintf(stdout, "Reach target, terminated, fm=%le, target=%le\n", fm, target);
+          break;
+        }
+      f0 = fm;
+      memcpy(x0, xm, sizeof(*x0) * dimensions);
+      pass++;
+    }
+
+  /*x1, f1 best solution */
+  scale_variables(xBest, xmin, xLowerLimit, xUpperLimit, dimensions);
+  *yReturn = fmin;
+
+  free(x0);
+  free(xm);
+  free_zarray_2d((void **)dmat0, dimensions, dimensions);
+  free(x1);
+  free(xt);
+  free(ndv);
+  free(dotp);
+  free(f_list);
+  f_list = NULL;
+  free(step_list);
+  step_list = NULL;
+  free(tmpx);
+  free(x_value);
+  return (totalEvaluations);
+}
+```
+]]]
+
+.footnote[
+.highlight.mid[\*] Unpublished code © [2002 Hairong Shang](mailto:shang@anl.gov)
 ]
 
 ---
@@ -1086,12 +1494,20 @@ name: acknowledgements
 .text-muted.small[For the support.highlight.sup[1, 2, 3] and many good advices
 ]
 - [**Minghao Song**](mailto:mhsong@slac.stanford.edu) .badge.badge-primary[user#1]  
-.text-muted.small[For the early testing/debugging and the helpful feedbacks  
+.text-muted.small[For the alpha-stage testing/debugging and the helpful feedbacks  
 Also for the contribution to the matlab Teeport plugin
 ]
 - [**Adi Hanuka**](mailto:adiha@slac.stanford.edu) .badge.badge-primary[advocate]  
 .text-muted.small[For the very helpful discussions and advices  
 Also for the kind advertising for Teeport!
+]
+- [**Hugo Slepicka**](mailto:slepicka@slac.stanford.edu) .badge.badge-primary[user#2]  
+.text-muted.small[For the beta-stage testing and the guidelines for the Ocelot integration  
+Also for the kind support for Teeport!
+]
+- [**Hairong Shang**](mailto:shang@anl.gov) .badge.badge-primary[user#3]  
+.text-muted.small[For the beta-stage testing and providing code used in these slides   
+Also for the kind support for Teeport!
 ]
 
 .footnote[
