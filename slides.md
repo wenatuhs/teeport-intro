@@ -1990,8 +1990,6 @@ name: applications-ocelot
 
 ---
 
-count: false
-
 ### Simplify the optimization algorithm integration process
 
 .center[
@@ -2026,8 +2024,6 @@ name: applications-uni-interface
 ]
 
 ---
-
-count: false
 
 ### Utilizing all the test suites for benchmarking
 
@@ -2128,8 +2124,6 @@ template: break-point
 ### Network issues
 
 ---
-
-count: false
 
 .center[
 <img src='images/break-point-recovery/Teeport Intro 55.png' width='80%'/>
@@ -2232,8 +2226,6 @@ template: time
 ### The solution
 
 ---
-
-count: false
 
 .center[
 <img src='images/time-traveling/Teeport Intro 65.png' width='80%'/>
