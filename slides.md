@@ -116,12 +116,14 @@ template: motivation
 
 ## The wall
 
+### Between the algorithm and the problem
+
 ---
 
 name: the-wall
 
 .center[
-<img src='images/the-wall/the-wall.001.jpeg' height='480'/>
+<img src='images/the-wall/the-wall.001.jpeg' width='80%'/>
 ]
 
 ---
@@ -129,7 +131,7 @@ name: the-wall
 count: false
 
 .center[
-<img src='images/the-wall/the-wall.002.jpeg' height='480'/>
+<img src='images/the-wall/the-wall.002.jpeg' width='80%'/>
 ]
 
 ---
@@ -137,7 +139,7 @@ count: false
 count: false
 
 .center[
-<img src='images/the-wall/the-wall.003.jpeg' height='480'/>
+<img src='images/the-wall/the-wall.003.jpeg' width='80%'/>
 ]
 
 ---
@@ -145,7 +147,7 @@ count: false
 count: false
 
 .center[
-<img src='images/the-wall/the-wall.004.jpeg' height='480'/>
+<img src='images/the-wall/the-wall.004.jpeg' width='80%'/>
 ]
 
 ---
@@ -153,7 +155,7 @@ count: false
 count: false
 
 .center[
-<img src='images/the-wall/the-wall.005.jpeg' height='480'/>
+<img src='images/the-wall/the-wall.005.jpeg' width='80%'/>
 ]
 
 ---
@@ -161,7 +163,7 @@ count: false
 count: false
 
 .center[
-<img src='images/the-wall/the-wall.006.jpeg' height='480'/>
+<img src='images/the-wall/the-wall.006.jpeg' width='80%'/>
 ]
 
 ---
@@ -170,15 +172,22 @@ name: the-wall-full
 count: false
 
 .center[
-<img src='images/the-wall/the-wall.007.jpeg' height='480'/>
+<img src='images/the-wall/the-wall.007.jpeg' width='80%'/>
 ]
 
 ---
 
-count: false
+layout: true
+template: motivation
+
+## The wall
+
+### Within the algorithm
+
+---
 
 .center[
-<img src='images/the-wall/the-wall.008.jpeg' height='480'/>
+<img src='images/the-wall/the-wall.008.jpeg' width='80%'/>
 ]
 
 ---
@@ -726,8 +735,8 @@ f = child;
 ```
 ]]]
 
-.right[
-<img src='images/get-around-the-wall/NSGA-II-page.png' width='48%'/>
+.right-5[
+<img src='images/get-around-the-wall/NSGA-II-page.png' width='100%'/>
 ]
 
 .footnote[
@@ -874,8 +883,8 @@ f = child;
 ```
 ]]]
 
-.right[
-<img src='images/get-around-the-wall/performance_nsgaii.png' width='35%'/>
+.right-5[
+<img src='images/get-around-the-wall/performance_nsgaii.png' width='75%'/>
 ]
 
 .footnote[
@@ -916,17 +925,19 @@ name: principles
 
 ## Design principles
 
-.left-5[
+.left-4[
 - .highlight[Minimize] the effort of the integration
     - Mininal APIs
+    - Maximal flexibility
 - .highlight[Embeddable] to the existed workflow
-    - Complement one another
+    - Enhance your workflow
+    - Can be used as a standalone platform, if you wish
 - .highlight[Ensure] the data safety
     - Never lose the precious data, under *any* circumstances
 ]
 
-.right-5[
-<img src='images/teeport/teeport.png' width='100%'/>
+.right-6[
+<img src='images/teeport/Teeport Intro 3.png' width='100%'/>
 ]
 
 ---
@@ -998,6 +1009,245 @@ configs = {
     ...
 }
 ```
+]
+
+---
+
+layout: true
+template: teeport-basics
+
+## Sample usages
+
+### Case study: test newly developed algorithm
+
+---
+
+name: usages
+
+.center[
+<img src='images/use-evaluator/Teeport Intro 5.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/use-evaluator/Teeport Intro 6.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/use-evaluator/Teeport Intro 7.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/use-evaluator/Teeport Intro 8.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/use-evaluator/Teeport Intro 9.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/use-evaluator/Teeport Intro 10.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/use-evaluator/Teeport Intro 11.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/use-evaluator/Teeport Intro 12.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/use-evaluator/Teeport Intro 13.png' width='80%'/>
+]
+
+---
+
+layout: true
+template: teeport-basics
+
+## Sample usages
+
+### Case study: optimize target function at hand
+
+---
+
+.center[
+<img src='images/use-optimizer/Teeport Intro 15.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/use-optimizer/Teeport Intro 16.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/use-optimizer/Teeport Intro 17.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/use-optimizer/Teeport Intro 18.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/use-optimizer/Teeport Intro 19.png' width='80%'/>
+]
+
+---
+
+layout: true
+template: teeport-basics
+
+## Sample usages
+
+### Case study: remote collaboration
+
+---
+
+.center[
+<img src='images/user-developer/Teeport Intro 21.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/user-developer/Teeport Intro 22.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/user-developer/Teeport Intro 23.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/user-developer/Teeport Intro 24.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/user-developer/Teeport Intro 25.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/user-developer/Teeport Intro 26.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/user-developer/Teeport Intro 27.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/user-developer/Teeport Intro 28.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/user-developer/Teeport Intro 29.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/user-developer/Teeport Intro 30.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/user-developer/Teeport Intro 31.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/user-developer/Teeport Intro 32.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/user-developer/Teeport Intro 33.png' width='80%'/>
 ]
 
 ---
@@ -1326,6 +1576,79 @@ Examples:
 ---
 
 layout: true
+template: teeport-basics-plus
+
+## Sample usages+
+
+### Case study: lazy beamline scientist
+
+---
+
+name: usages-cont
+
+.center[
+<img src='images/monitor/Teeport Intro 35.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/monitor/Teeport Intro 36.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/monitor/Teeport Intro 37.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/monitor/Teeport Intro 38.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/monitor/Teeport Intro 39.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/monitor/Teeport Intro 40.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/monitor/Teeport Intro 41.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/monitor/Teeport Intro 42.png' width='80%'/>
+]
+
+---
+
+layout: true
 template: blank
 name: frontend
 
@@ -1477,6 +1800,7 @@ template: applications
 name: applications-lossrate
 
 .left-5[
+### Knobs overview
 .center[
 <img src='images/spear-lossrate.jpeg' height='450'/>
 ]]
@@ -1536,12 +1860,13 @@ end
 count: false
 
 .left-5[
+### Knobs overview
 .center[
 <img src='images/spear-lossrate.jpeg' height='450'/>
 ]]
 
 .right-5[
-MG-GPO vs PSO.highlight.sup[\*]
+### Evaluation history: MG-GPO vs PSO.highlight.sup[\*]
 <img src='images/performance_lossrate_exp_best.png' class='w-100'/>
 ]
 
@@ -1561,13 +1886,13 @@ template: applications
 name: applications-gpy
 
 .left-5[
-<img src='images/teeport/teeport-gpy.png' width='100%' style='margin-top: 2em;'/>
+### The idea
+
+<img src='images/teeport-gpy/Teeport Intro 44.png' width='100%' style='margin-top: 2em;'/>
 ]
 
 .right-5[
-GPy side
-.my-n2[
-]
+### GPy side code
 
 .frame-1x3[.frame-i[
 ```python
@@ -1609,9 +1934,7 @@ loop.run_until_complete(teeport.processors[0].task)
 ```
 ]]
 
-MG-GPO side
-.my-n2[
-]
+### MG-GPO side code
 
 .frame-1x3[.frame-i[
 ```matlab
@@ -1659,16 +1982,47 @@ template: applications
 
 name: applications-ocelot
 
+### Break the language wall for the machine interfaces
+
 .center[
-<img src='images/teeport/teeport-ocelot-eval.png' width='85%'/>
+<img src='images/ocelot-teeport/Teeport Intro 46.png' width='80%'/>
 ]
 
 ---
 
 count: false
 
+### Simplify the optimization algorithm integration process
+
 .center[
-<img src='images/teeport/teeport-ocelot-opt.png' width='85%'/>
+<img src='images/ocelot-teeport/Teeport Intro 47.png' width='80%'/>
+]
+
+---
+
+layout: true
+template: applications
+
+## Unified interface for the optimization platforms
+
+---
+
+name: applications-uni-interface
+
+### Using all the fancy algorithms for optimization
+
+.center[
+<img src='images/teeport-pp/Teeport Intro 49.png' width='80%'/>
+]
+
+---
+
+count: false
+
+### Utilizing all the test suites for benchmarking
+
+.center[
+<img src='images/teeport-pp/Teeport Intro 50.png' width='80%'/>
 ]
 
 ---
@@ -1715,17 +2069,123 @@ ___
 
 ---
 
-exclude: true
-name: time-travel
+layout: true
+template: blank
+name: plans
 
-## About `time travel`
+# [Planned Features](#index)
 
 ---
 
-exclude: true
 name: data-safety
 
 ## Data safety
+
+.center[
+<img src='images/data-safety/Teeport Intro 67.png' width='80%'/>
+]
+
+---
+
+layout: true
+template: plans
+
+## Break-point recovery
+
+---
+
+name: break-rec
+
+.center[
+<img src='images/break-point-recovery/Teeport Intro 54.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/break-point-recovery/Teeport Intro 55.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/break-point-recovery/Teeport Intro 56.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/break-point-recovery/Teeport Intro 57.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/break-point-recovery/Teeport Intro 58.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/break-point-recovery/Teeport Intro 59.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/break-point-recovery/Teeport Intro 60.png' width='80%'/>
+]
+
+---
+
+layout: true
+template: plans
+
+## Time traveling
+
+---
+
+name: time-travel
+
+.center[
+<img src='images/time-traveling/Teeport Intro 62.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/time-traveling/Teeport Intro 63.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/time-traveling/Teeport Intro 64.png' width='80%'/>
+]
+
+---
+
+count: false
+
+.center[
+<img src='images/time-traveling/Teeport Intro 65.png' width='80%'/>
+]
 
 ---
 
@@ -1746,16 +2206,17 @@ name: repos
 
 - Connect optimizers, evaluators and processors, *effortlessly*
     - Support both <abbr title='Single-objective Problem'>SOP</abbr>s and <abbr title='Multi-objective Problem'>MOP</abbr>s
-- Resume/.text-muted[recover] optimization from break-point
+- .text-muted[Break-point recovery]
+- .text-muted[Persistent data storage]
 
 ### Teeport w/ GUI
 
-- Control
-- Monitor
-- Export
-- Benchmark
-- .text-muted[Hyper-parameter tuning]
+- Optimization control
+- Data monitor
+- Data management
+- Benchmarking
 - .text-muted[Time traveling]
+- .text-muted[Hyper-parameter auto-tuning]
 ]
 
 .right-5[
@@ -1795,6 +2256,9 @@ template: blank
 
 name: acknowledgements
 
+.left-5[
+## Teammates
+
 - [**Xiaobiao Huang**](mailto:huangxb@anl.gov) .badge.badge-primary[sponsor]  
 .text-muted.small[For the support.highlight.sup[1, 2, 3] and many good advices
 ]
@@ -1802,17 +2266,23 @@ name: acknowledgements
 .text-muted.small[For the alpha-stage testing/debugging and the helpful feedbacks  
 Also for the contribution to the matlab Teeport plugin
 ]
+]
+
+.right-5[
+## Collaborators
+
 - [**Adi Hanuka**](mailto:adiha@slac.stanford.edu) .badge.badge-primary[advocate]  
 .text-muted.small[For the very helpful discussions and advices  
 Also for the kind advertising for Teeport!
 ]
 - [**Hugo Slepicka**](mailto:slepicka@slac.stanford.edu) .badge.badge-primary[user#2]  
-.text-muted.small[For the beta-stage testing and the guidelines for the Ocelot integration  
+.text-muted.small[For the beta-stage testing and the help on Ocelot integration  
 Also for the kind support for Teeport!
 ]
 - [**Hairong Shang**](mailto:shang@anl.gov) .badge.badge-primary[user#3]  
 .text-muted.small[For the beta-stage testing and providing code used in these slides   
 Also for the kind support for Teeport!
+]
 ]
 
 .footnote[
@@ -1845,20 +2315,21 @@ count: false
 
 ### [Motivation](#opt-acc)
 - [Optimizations in the accelerator field](#opt-acc)
-- [The wall](#the-wall-full)
-- [Get around the wall](#get-around-the-wall)
+- [The wall](#the-wall-full) `&` [Get around the wall](#get-around-the-wall)
 
 ### [Teeport](#principles)
 - [Design principles](#principles)
 - [Concepts](#concepts) `&` [Concepts+](#concepts-cont)
-- [API](#run-processor) `&` [API+](#monitor-opt)
-- [Desktop](#desktop) `&` [Mobile](#mobile)
+- [Sample usages](#usages) `&` [Sample usages+](#usages-cont)
+- [API](#run-processor) `&` [API+](#monitor-opt) `&` [Desktop](#desktop) `&` [Mobile](#mobile)
+- [Data safety](#data-safety) `&` [Break-point recovery](#break-rec) `&` [Time traveling](#time-travel)
 - [Repositories](#repos)
 
 ### [Applications](#applications-lossrate)
 - [SPEAR3 beam loss rate remote optimization](#applications-lossrate)
 - [Enhance MG-GPO with GPy](#applications-gpy)
 - [Extend the ability of Ocelot](#applications-ocelot)
+- [Unified interface for the optimization platforms](#applications-uni-interface)
 ]
 
 .right-5[
