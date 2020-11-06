@@ -2000,6 +2000,16 @@ count: false
 
 ---
 
+count: false
+
+### Simplify the optimization algorithm integration process
+
+.center[
+<img src='images/ocelot-teeport/plugin.png' width='50%'/>
+]
+
+---
+
 layout: true
 template: applications
 
@@ -2206,6 +2216,7 @@ name: repos
 
 - Connect optimizers, evaluators and processors, *effortlessly*
     - Support both <abbr title='Single-objective Problem'>SOP</abbr>s and <abbr title='Multi-objective Problem'>MOP</abbr>s
+    - Code algorithm/problem once, use everywhere
 - .text-muted[Break-point recovery]
 - .text-muted[Persistent data storage]
 
@@ -2335,9 +2346,10 @@ count: false
 .right-5[
 ## Backlog
 
-<!-- ### [FAQ](#cons-prob)
+### [FAQ](#cons-prob)
 - [Deal with constrained/safety search problems?](#cons-prob)
-- [Work in the LCLS control room?](#no-network)
+
+<!-- - [Work in the LCLS control room?](#no-network)
 - [Pass the Pareto front to the evaluator?](#calc-igd)
 - [Carry more information (evaluator side)?](#carry-more)
 - [Monitor more properties (optimizer side)?](#monitor-feature) -->
@@ -2365,6 +2377,17 @@ count: false
 
 ## Constrained problems in Teeport
 
+.center[
+<img src='images/constrains/Teeport Intro 52.png' width='80%'/>
+]
+
+---
+
+exclude: true
+count: false
+
+## Constrained problems in Teeport
+
 .left-5[
 ### General constrains
 
@@ -2387,6 +2410,7 @@ $$C_1(\mathbf{x})$$
 
 ---
 
+exclude: true
 name: no-network
 count: false
 
@@ -2394,6 +2418,7 @@ count: false
 
 ---
 
+exclude: true
 name: calc-igd
 count: false
 
@@ -2401,6 +2426,7 @@ count: false
 
 ---
 
+exclude: true
 name: carry-more
 count: false
 
@@ -2408,6 +2434,7 @@ count: false
 
 ---
 
+exclude: true
 name: monitor-feature
 count: false
 
@@ -2956,7 +2983,7 @@ count: false
 ]
 
 .right-5[
-[**Teeport Intro**](https://github.com/wenatuhs/teeport-intro) .badge.badge-secondary[markdown/html/css/javascript]
+[**Teeport Intro**](https://github.com/wenatuhs/teeport-intro/tree/full-version) .badge.badge-secondary[markdown/html/css/javascript]
 .mb-n3[
 ]
 .text-muted.small[Introduction to Teeport, made with remark.js
@@ -2980,7 +3007,7 @@ name: title
 ]
 
 [Zhe](https://github.com/wenatuhs).highlight.sup[\*] [ZHANG](mailto:zhezhang@slac.stanford.edu)  
-.text-muted[10/21/2020]
+.text-muted[11/06/2020]
 
 .footnote[
 .highlight.mid[\\*] Call me *Jay* if you have difficulty pronouncing it
