@@ -2091,6 +2091,8 @@ name: data-safety
 
 ## Data safety
 
+### Auto archive for the dataflow
+
 .center[
 <img src='images/data-safety/Teeport Intro 67.png' width='80%'/>
 ]
@@ -2099,8 +2101,16 @@ name: data-safety
 
 layout: true
 template: plans
+name: break-point
 
 ## Break-point recovery
+
+---
+
+layout: true
+template: break-point
+
+### Normal state
 
 ---
 
@@ -2109,6 +2119,13 @@ name: break-rec
 .center[
 <img src='images/break-point-recovery/Teeport Intro 54.png' width='80%'/>
 ]
+
+---
+
+layout: true
+template: break-point
+
+### Network issues
 
 ---
 
@@ -2123,20 +2140,30 @@ count: false
 count: false
 
 .center[
-<img src='images/break-point-recovery/Teeport Intro 56.png' width='80%'/>
-]
-
----
-
-count: false
-
-.center[
 <img src='images/break-point-recovery/Teeport Intro 57.png' width='80%'/>
 ]
 
 ---
 
-count: false
+layout: true
+template: break-point
+
+### Evaluator crash
+
+---
+
+.center[
+<img src='images/break-point-recovery/Teeport Intro 56.png' width='80%'/>
+]
+
+---
+
+layout: true
+template: break-point
+
+### Optimizer crash
+
+---
 
 .center[
 <img src='images/break-point-recovery/Teeport Intro 58.png' width='80%'/>
@@ -2162,8 +2189,16 @@ count: false
 
 layout: true
 template: plans
+name: time
 
 ## Time traveling
+
+---
+
+layout: true
+template: time
+
+### The scenario
 
 ---
 
@@ -2188,6 +2223,13 @@ count: false
 .center[
 <img src='images/time-traveling/Teeport Intro 64.png' width='80%'/>
 ]
+
+---
+
+layout: true
+template: time
+
+### The solution
 
 ---
 
