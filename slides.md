@@ -591,9 +591,9 @@ long rcdsMin(double *yReturn, double *xBest, double *xGuess, double *dxGuess, do
 
 ---
 
-.left-5[
 ### The true NSGA-II.highlight.sup[\*]
 
+.left-5[
 .frame-4x5[.frame-i[
 ```matlab
 function f  = genetic_operator(parent_chromosome, M, V, mu, mum, l_limit, u_limit)
@@ -1846,6 +1846,7 @@ count: false
 ### [Motivation](#opt-acc)
 - [Optimizations in the accelerator field](#opt-acc)
 - [The wall](#the-wall-full)
+- [Get around the wall](#get-around-the-wall)
 
 ### [Teeport](#principles)
 - [Design principles](#principles)
